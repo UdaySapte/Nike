@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+
+
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+
+/* Product container */
+.product-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 15%;
+}
+
+/* Product image */
+.product-image img {
+    max-width: 600px;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(81, 141, 198, 0.437);
+
+}
+
+
+
+
+/* Product details */
+.product-details {
+    max-width: 600px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(83, 141, 198, 0.437);
+}
+
+.product-title {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.product-description {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.product-price {
+    font-size: 1.5rem;
+    color: #12be5f;
+    margin-bottom: 20px;
+}
+
+.add-to-cart-btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.2rem;
+    background-color: #12be5f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #0c7229;
+}
+.quantity{
+    display: inline-block;
+    padding: 0.5px;
+    margin-bottom: 12px;
+    background-color: #12be5f;
+   
+}
+.quantity button{
+    border: 0px;
+    width: 20px;
+    height: 20px;
+    background-color: #12be5f;
+    cursor: pointer;
+    color: white;
+
+
+   
+}
+
+.quantity button:hover{
+    background-color: white;
+    color: #12be5f;
+    border: 1px solid #12be5f;
+    color: #12be5f;
+}
+.qua{
+    display:inline-block;
+   
+    margin-left: 7px;
+    margin-right: 3px;
+
+}
+.quantity i{
+    height: 15px;
+    width: 15px;
+
+}
+.qua h4{
+    color: white;
+}
+.modal-overlay {
+    position: fixed;
+    margin-left: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    background-color: #297fb92b;
+    z-index: 1000;
+    border-radius: 10px;
+}
+
+/* Styling for the modal content */
+.modal-content {
+    background-color: #297fb92b;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+} .popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 20%;
+}
+
+.popup-content {
+    text-align: center;
+}
+
+.close {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
+}
+
+
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+.popupform{
+width: 100%;
+padding: 10px;
+margin: 5px 0;
+box-sizing: border-box;
+border: 1px solid #ccc;
+border-radius: 3px;
+
+
+}
+  input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  input[type="number"] {
+    
+    border: 1px solid #ccc;
+    border-radius: 2px;
+  }
+  textarea{
+    border: 1px solid #ccc;
+    border-radius: 2px;
+  }
+  input[type="submit"] {
+    background-color: white;
+    color: white;
+    cursor: pointer;
+    border: 2px solid #2980b9;
+    color: #2980b9;
+    border-radius: 5px;
+  }
+  input[type="submit"]:hover {
+    background-color: #3498db;
+    color: white;
+    border: 2px solid white;
+  }
+  .cartpopup {
+    display:block ;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 20%;
+}
+
+.cartcontainer {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #3498db;
+  }
+
+  .popup-content h2{
+    color: white;
+
+  }
+   
+  .popup-content h1{
+    color: white;
+  }
+  .img-123{
+    width: 160px;
+    height:500px;
+
+  }
+  
+
+
+    </style>
+</head>
+<body  ng-app="myApp" ng-controller="myCtrl">
+    <div class="product-container">
+        <div class="product-image">
+            <img src="../image/book-2.png" alt="Product Image" class="img-123">
+        </div>
+        <div class="product-details">
+            <h1 class="product-title">{{ProductName}}</h1>
+            
+            <div><p class="product-description">Windows 11 Home - ASUS recommends Windows 11 Pro for business
+                Up to 13th gen Intel® Core™ i9-13905H processor
+                Up to NVIDIA® GeForce® RTX™ 4080
+                3.2K 120Hz OLED HDR NanoEdge touchscreen Display.</p>
+           <div class="quantity"> <button ng-click="decrementQuantity()"><i class="fa-solid fa-minus" ></i></button> 
+             <div class="qua"><h4>{{quantity}}</h4></div> <button ng-click="incrementQuantity()"><i class="fa-solid fa-plus"></i></button></div>
+           
+          
+        </div>
+            <p class="product-price"><i class="fa-solid fa-indian-rupee-sign">{{total}}</i></p>
+            <button class="add-to-cart-btn" ng-click="openModal()">Add to Cart</button>
+            <br>
+           <a href="../index.html" ><button class="add-to-cart-btn">Cancel</button></a>
+            
+        </div>
+         <!-- Popup Modal -->
+         <!-- <div class="modal-overlay" ng-show="showModal" ng-click="closeModal()">
+            <div class="modal-content" ng-click="$event.stopPropagation()">
+                <h2>Shop Now!</h2>
+                <p>Here are the products you can buy.</p>
+                <button ng-click="closeModal()">Close</button>
+            </div>
+        </div> -->
+
+
+
+
+
+
+
+
+        <div class="cartpopup" ng-show="showModal">
+            <div class="cartcontainer" >
+            <div class="popup-content">
+                <span class="close" ng-click="hidePopup()"></span>
+                <h1>{{ProductName}}</h1>
+                <br>
+                <br>
+                <h2><i class="fa-solid fa-indian-rupee-sign">{{total}}.00 </i></h2>
+                <br>
+                <br>
+                <!-- <input type="number" placeholder="qauntity" ng-model="BobaTea1" class="quantity" required>
+                <br>
+                <br> -->
+                <input type="number" placeholder="mobile number" required ng-model="number">
+                <br>
+                <br>
+                <textarea placeholder="address" required ng-model="address"></textarea>
+                <br>
+                <br>
+                <label><h2>Payment :</h2></label>
+                <br>
+                <select name="dropdown" placeholder="payment" ng-model="payment">
+                    <option value="Debit cart">Debit cart</option>
+                    <option value="Creadit cart">Creadit cart</option>
+                    <option value="UPI">UPI</option>
+                    <option value="Cash On Delivery">Cash On Delivery</option>
+        
+                </select>
+                <br>
+                <br>
+                   
+                <a href="#" ><input type="submit" value="Submit" ng-click="addToCart()"></a>
+        
+                <a href="#" ><input type="submit" value="CANCEL" ng-click="closeModal()"></a>    </div>
+        </div>
+        </div>
+        
+
+    </div>
+
+
+
+
+
+
+
+
+
+    </div>
+    <script>
+        var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope, $http) {
+
+
+   
+
+
+
+   $scope.showModal = false;
+
+   // Function to open the modal
+   $scope.openModal = function() {
+       $scope.showModal = true;
+   };
+
+   // Function to close the modal
+   $scope.closeModal = function() {
+       $scope.showModal = false;
+       
+   };
+   
+   // Function to update the total whenever price or quantity changes
+  
+$scope.ProductName = "Give Thanks In Everything Happy";
+$scope.price = 60;
+$scope.quantity = 1;
+$scope.number = '';
+$scope.address = '';
+$scope.payment = '';
+$scope.total = $scope.price * $scope.quantity;
+
+// Function to update the total whenever price or quantity changes
+$scope.updateTotal = function() {
+    $scope.total = $scope.price * $scope.quantity;
+};
+
+// Function to increment the quantity
+$scope.incrementQuantity = function() {
+    $scope.quantity++;
+    $scope.updateTotal();
+};
+
+// Function to decrement the quantity
+$scope.decrementQuantity = function() {
+    if ($scope.quantity > 1) {
+        $scope.quantity--;
+        $scope.updateTotal();
+    }
+};
+
+// Add product to cart
+$scope.addToCart = function() {
+    let book = {
+        name: $scope.ProductName,
+        price: $scope.price,
+        quantity: $scope.quantity,
+        total: $scope.total,
+        number: $scope.number,
+        address: $scope.address,
+        payment: $scope.payment,
+    };
+
+    // Retrieve existing cart data from localStorage or initialize as empty array
+    var storedData = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // Add the new product to the cart
+    storedData.push(book);
+
+    // Store the updated cart data back in localStorage
+    localStorage.setItem('cart', JSON.stringify(storedData));
+
+    alert('Product added to cart');
+
+    openModal()
+};
+
+
+
+
+
+  
+
+
+});
+    </script>
+</body>
+</html>
